@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: znuny_pod
+spec:
+  containers:
+  - name: znuny
+    image: juanluisbaptiste/znuny:latest
+    ports:
+    - containerPort: 80
+    env:
+    - name: OTRS_VERSION
+      value: 6.0.45-01
+    - name: OTRS_ROOT
+      value: /opt/otrs/
+    - name: OTRS_SKINS_MOUNT_DIR
+      value: /skins/
+    - name: OTRS_CONFIG_DIR
+      value: /opt/otrs/Kernel
+    - name: OTRS_CONFIG_MOUNT_DIR
+      value: /config/
+    - name: SKINS_PATH
+      value: /opt/otrs//var/httpd/htdocs/skins/
+    - name: LANGUAGE
+      value: en_US.UTF-8
+    - name: OTRS_BACKUP_DIR
+      value: /var/otrs/backups
+    - name: OTRS_DB_HOST
+      value: mariadb
+    #volumeMounts:
+    #- mountPath: /opt/otrs/Kernel
+    #  name: otrs-data
+    #- mountPath: /opt/otrs/var/httpd/htdocs/skins/
+    #  name: otrs-data
+    #- mountPath: /var/otrs/backups
+    #  name: otrs-data
+    #- mountPath: /opt/otrs/addons
+    #  name: otrs-data
+    #- mountPath: /opt/otrs/db_upgrade
+    #  name: otrs-data
+    #- mountPath: /etc/localtime:ro
+    #  name: otrs-data
+  - name: mariadb
+    image: juanluisbaptiste/otrs-mariadb:latest
